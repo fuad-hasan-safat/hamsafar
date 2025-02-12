@@ -5,6 +5,7 @@ import { Geist, Geist_Mono, Inter, Dancing_Script, Exo_2, Playwrite_US_Modern } 
 import "./globals.css";
 import Provider from "@/components/Provider";
 import Flower from "@/components/Flower";
+import Topnav from "@/components/navbar/Topnav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,6 +54,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable}  ${dancing_script.variable} ${exo_2.variable} ${geistSans.variable} ${geistMono.variable} ${playwrite.variable}flex antialiased min-h-screen relative`}
       >
         <Provider>
+          <Topnav/>
           {children}
           <Flower/>
         </Provider>
