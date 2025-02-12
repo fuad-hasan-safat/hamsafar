@@ -22,7 +22,7 @@ export default function Topnav() {
             <NavbarBrand as={Link} href="/">
                 <GiLoveLetter
                     size={40}
-                    className="text-yellow-200"
+                    className="text-red-400"
                 />
                 <div className='font-bold text-3xl flex'>
                     <span className='text-white'>Hamsafar</span>
@@ -52,7 +52,7 @@ export default function Topnav() {
 
                 <Button
                  as={Link}
-                 href='/registrer'
+                 href='/register'
                  variant='bordered'
                 >
                     Register
