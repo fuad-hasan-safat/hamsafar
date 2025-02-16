@@ -1,8 +1,22 @@
+"use client"
 import { Button, Card, CardBody, CardHeader, Input } from '@heroui/react'
 import React from 'react'
 import { GiPadlockOpen } from 'react-icons/gi'
+import { useForm, SubmitHandler } from "react-hook-form"
 
+type Inputs = {
+    Email: string
+    Password: string
+}
 export default function LoginForm() {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors, isValid },
+    } = useForm<Inputs>()
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
     return (
         <div>
             <Card className='w-2/5 mx-auto my-auto mt-[25px] shadow-md shadow-sky-400 bg-white '>
@@ -16,19 +30,31 @@ export default function LoginForm() {
                     </div>
                 </CardHeader>
                 <CardBody>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <div className='space-y-4'>
                             <Input
                                 defaultValue=''
                                 label="Email"
                                 variant='bordered'
                                 type="email"
+                                {...register("Email", {
+                                    required: "Email is required",
+                                })}
+                                isInvalid={!!errors.Email}
+                                
                             />
                             <Input
                                 defaultValue=''
                                 label="Password"
                                 variant='bordered'
                                 type="password"
+                                {...register("Password", {
+                                    required: "Password is required",
+                                    minLength:{
+                                        value: 8,
+                                        message: "Password must be at least 8 characters long"
+                                    }
+                                })}
                             />
                             <Button
                                 fullWidth
