@@ -41,7 +41,9 @@ export default function LoginForm() {
                                     required: "Email is required",
                                 })}
                                 isInvalid={!!errors.Email}
-                                
+                                errorMessage={
+                                    errors.Email?.message as string
+                                }
                             />
                             <Input
                                 defaultValue=''
@@ -50,11 +52,15 @@ export default function LoginForm() {
                                 type="password"
                                 {...register("Password", {
                                     required: "Password is required",
-                                    minLength:{
+                                    minLength: {
                                         value: 8,
                                         message: "Password must be at least 8 characters long"
                                     }
                                 })}
+                                isInvalid={!!errors.Password}
+                                errorMessage={
+                                 errors.Password?.message as string
+                                }
                             />
                             <Button
                                 fullWidth
