@@ -3,19 +3,22 @@ import { Button, Card, CardBody, CardHeader, Input } from '@heroui/react'
 import React from 'react'
 import { GiPadlockOpen } from 'react-icons/gi'
 import { useForm, SubmitHandler } from "react-hook-form"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { LoginSchema ,
+    LoginSchemaType
+} from '@/libs/schemas/LohinSchemas'
 
-type Inputs = {
-    Email: string
-    Password: string
-}
 export default function LoginForm() {
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors, isValid },
-    } = useForm<Inputs>()
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+    } = useForm<LoginSchemaType>({
+        resolver: zodResolver(LoginSchema),
+        mode: "onChange",
+    })
+    const onSubmit = (data: LoginSchemaType) => console.log(data)
 
     return (
         <div>
@@ -37,12 +40,10 @@ export default function LoginForm() {
                                 label="Email"
                                 variant='bordered'
                                 type="email"
-                                {...register("Email", {
-                                    required: "Email is required",
-                                })}
-                                isInvalid={!!errors.Email}
+                                {...register("email")}
+                                isInvalid={!!errors.email}
                                 errorMessage={
-                                    errors.Email?.message as string
+                                    errors.email?.message as string
                                 }
                             />
                             <Input
@@ -50,22 +51,17 @@ export default function LoginForm() {
                                 label="Password"
                                 variant='bordered'
                                 type="password"
-                                {...register("Password", {
-                                    required: "Password is required",
-                                    minLength: {
-                                        value: 8,
-                                        message: "Password must be at least 8 characters long"
-                                    }
-                                })}
-                                isInvalid={!!errors.Password}
+                                {...register("password")}
+                                isInvalid={!!errors.password}
                                 errorMessage={
-                                 errors.Password?.message as string
+                                 errors.password?.message as string
                                 }
                             />
                             <Button
                                 fullWidth
                                 color='primary'
                                 type='submit'
+                                disabled={!isValid}
                             >
                                 Log In
                             </Button>
