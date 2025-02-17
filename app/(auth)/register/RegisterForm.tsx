@@ -1,5 +1,6 @@
-import { Card, CardHeader } from '@heroui/react'
+import { Card, CardBody, CardHeader } from '@heroui/react'
 import React from 'react'
+import { FormProvider } from 'react-hook-form'
 import { RiLockUnlockLine } from 'react-icons/ri'
 
 export default function RegisterForm() {
@@ -16,6 +17,11 @@ export default function RegisterForm() {
                     </p>
                 </div>
             </CardHeader>
+            <CardBody>
+                <FormProvider >
+
+                </FormProvider>
+            </CardBody>
         </Card>
     )
 }
