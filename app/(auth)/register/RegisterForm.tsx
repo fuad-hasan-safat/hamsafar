@@ -1,9 +1,31 @@
+import { RegisterSchema, RegisterSchemaType } from '@/libs/schemas/RegisterSchema';
 import { Card, CardBody, CardHeader } from '@heroui/react'
-import React from 'react'
-import { FormProvider } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useState } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { RiLockUnlockLine } from 'react-icons/ri'
 
+
+const stepSchemas = [
+    RegisterSchema,
+];
+
 export default function RegisterForm() {
+    const [activeStep, setActiveStep] = useState(0);
+
+    const currentValidationSchema =
+        stepSchemas[activeStep];
+
+
+    const registerFormMethods =
+        useForm<RegisterSchemaType>({
+            resolver: zodResolver(
+                currentValidationSchema
+            ),
+            mode: "onTouched",
+        });
+
+
     return (
         <Card className='w-3/5 mx-auto mt-[110px]'>
             <CardHeader className='flex flex-col justify-center items-center'>
@@ -18,7 +40,7 @@ export default function RegisterForm() {
                 </div>
             </CardHeader>
             <CardBody>
-                <FormProvider >
+                <FormProvider {...registerFormMethods}>
 
                 </FormProvider>
             </CardBody>
